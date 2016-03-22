@@ -26,6 +26,10 @@
     service: name=docker
              state=started
              enabled=yes
+             
+             
+  - name: copy a haproxy source directory
+    copy: src=haproxy dest=/opt/haproxy           
 
   - name: Add Consul SystemD Service 
     template: src=consul.service.j2 dest=/usr/lib/systemd/system/consul.service
