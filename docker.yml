@@ -1,0 +1,22 @@
+- hosts: docker
+
+  tasks:
+
+  - name: upgrade all packages
+    yum: name=* state=latest
+
+  - name: Add Docker Yum repo
+    copy: src=docker.repo
+          dest=/etc/yum.repos.d/
+          owner=root group=root mode=0644
+
+  - name: docker-engine install
+    yum: name=docker-engine
+         state=present
+
+  - name: Docker Service Start
+    service: name=docker
+             state=started
+             enabled=yes
+
+
