@@ -19,4 +19,7 @@
              state=started
              enabled=yes
 
-
+  - name: Add Consul SystemD Service 
+    copy: src=consul.service
+          dest=usr/lib/systemd/system/
+          owner=root group=root mode=0644
