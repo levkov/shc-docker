@@ -5,6 +5,7 @@ After=docker.service
 
 [Service]
 Restart=always
+ExecStartPre=-/usr/bin/docker run -d --name=dockerui -p 9000:9000 -e "SERVICE_9000_NAME=dockerui_http"  --privileged -v /var/run/docker.sock:/var/run/docker.sock dockerui/dockerui
 ExecStart=/usr/bin/docker start -a dockerui
 ExecStop=/usr/bin/docker stop -t 2 dockerui
 
