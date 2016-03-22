@@ -31,8 +31,10 @@
     copy: src=consul.service
           dest=/usr/lib/systemd/system/
           owner=root group=root mode=0644
-    notify:
-      - reload systemd
+
+  - name: Reload SystemD
+    command: /bin/systemctl daemon-reload
+  
 
   - name: Consul Service Start
     service: name=consul
