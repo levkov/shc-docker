@@ -31,9 +31,7 @@
     template: src=consul.service.j2 dest=/usr/lib/systemd/system/consul.service
           
   - name: Add Registrator SystemD Service 
-    copy: src=registrator.service
-          dest=/usr/lib/systemd/system/
-          owner=root group=root mode=0644          
+    template: src=registrator.service.j2 dest=/usr/lib/systemd/system/registrator.service    
 
   - name: Add DockerUI SystemD Service 
     copy: src=dockerui.service
