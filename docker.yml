@@ -41,7 +41,12 @@
   - name: Add Registry SystemD Service 
     copy: src=registry.service
           dest=/usr/lib/systemd/system/
-          owner=root group=root mode=0644           
+          owner=root group=root mode=0644    
+          
+  - name: Add Jenkins SystemD Service 
+    copy: src=jenkins.service
+          dest=/usr/lib/systemd/system/
+          owner=root group=root mode=0644            
 
   - name: Reload SystemD
     command: /bin/systemctl daemon-reload
@@ -64,5 +69,10 @@
 
   - name: Registry Service Start
     service: name=registry
+             state=started
+             enabled=yes
+
+  - name: jenkins Service Start
+    service: name=jenkins
              state=started
              enabled=yes
