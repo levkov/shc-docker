@@ -28,9 +28,7 @@
              enabled=yes
 
   - name: Add Consul SystemD Service 
-    copy: src=consul.service
-          dest=/usr/lib/systemd/system/
-          owner=root group=root mode=0644
+    template: src=consul.service.j2 dest=/usr/lib/systemd/system/consul.service
           
   - name: Add Registrator SystemD Service 
     copy: src=registrator.service
