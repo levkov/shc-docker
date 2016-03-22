@@ -31,6 +31,9 @@
   - name: copy a haproxy source directory
     copy: src=haproxy dest=/opt          
 
+  - name: Modify HAProxy SupervisorD conf file
+    template: src=haproxy/conf/supervisord.conf.j2 dest=/opt/haproxy/conf/supervisord.conf
+
   - command: /usr/bin/docker build -t levkov/haproxy .
     args:
       chdir: /opt/haproxy
