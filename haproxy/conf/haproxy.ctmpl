@@ -1,0 +1,37 @@
+global
+    log 127.0.0.1   local0
+    log 127.0.0.1   local1 notice
+    debug
+    stats timeout 30s
+
+
+defaults
+    log global
+    option httplog
+    option dontlognull
+    mode http{{range ls "service/haproxy/timeouts"}}
+    timeout {{.Key}} {{.Value}}{{else}}
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000{{end}}
+
+frontend http-in
+    bind *:80{{range $i,$a:=services}}{{$path:=.Name}}{{if .Name | contains "http"}}
+    acl app{{$i}} path_beg -i /{{$path}}{{end}}{{end}}
+    {{range $i,$a:=services}}{{if .Name | contains "http"}}
+    use_backend srvs_app{{$i}} if app{{$i}}{{end}}{{end}}
+
+{{range $i,$a:=services}}{{$path:=.Name}}{{if .Name | contains "http"}}
+backend srvs_app{{$i}}
+    mode http
+    balance roundrobin
+    reqrep ^([^\ ]*\ /){{$path}}[/]?(.*)     \1\2
+    option forwardfor{{range $c,$d:=service $a.Name}}
+    server host{{$c}} {{.Address}}:{{.Port}} check{{end}}{{end}}{{end}}
+
+    listen appname 0.0.0.0:80
+        mode http
+        stats enable
+        stats show-node
+        stats uri /stats
+        option httpclose
