@@ -31,6 +31,11 @@
     copy: src=consul.service
           dest=/usr/lib/systemd/system/
           owner=root group=root mode=0644
+          
+  - name: Add Registrator SystemD Service 
+    copy: src=registrator.service
+          dest=/usr/lib/systemd/system/
+          owner=root group=root mode=0644          
 
   - name: Reload SystemD
     command: /bin/systemctl daemon-reload
@@ -38,5 +43,10 @@
 
   - name: Consul Service Start
     service: name=consul
+             state=started
+             enabled=yes
+
+  - name: Registrator Service Start
+    service: name=registrator
              state=started
              enabled=yes
