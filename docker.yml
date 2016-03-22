@@ -10,6 +10,9 @@
     yum: name=libselinux-python
          state=present
 
+  - name: Disable selinux
+    selinux: state=disabled
+
   - name: Add Docker Yum repo
     copy: src=docker.repo
           dest=/etc/yum.repos.d/
