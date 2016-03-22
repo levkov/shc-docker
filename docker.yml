@@ -31,8 +31,8 @@
   - name: copy a haproxy source directory
     copy: src=haproxy dest=/opt          
 
- - name: Build HAProxy Container
-   command: cd /opt/haproxy && /usr/bin/docker build -t levkov/haproxy .
+  - name: Build HAProxy Container
+    command: cd /opt/haproxy && /usr/bin/docker build -t levkov/haproxy .
 
   - name: Add Consul SystemD Service 
     template: src=consul.service.j2 dest=/usr/lib/systemd/system/consul.service
