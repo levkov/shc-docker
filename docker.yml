@@ -41,6 +41,11 @@
     copy: src=dockerui.service
           dest=/usr/lib/systemd/system/
           owner=root group=root mode=0644  
+          
+  - name: Add Registry SystemD Service 
+    copy: src=registry.service
+          dest=/usr/lib/systemd/system/
+          owner=root group=root mode=0644           
 
   - name: Reload SystemD
     command: /bin/systemctl daemon-reload
@@ -58,5 +63,10 @@
              
   - name: DockerUI Service Start
     service: name=dockerui
+             state=started
+             enabled=yes
+
+  - name: Registry Service Start
+    service: name=registry
              state=started
              enabled=yes
