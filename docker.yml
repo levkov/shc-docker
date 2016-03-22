@@ -32,7 +32,7 @@
           dest=/usr/lib/systemd/system/
           owner=root group=root mode=0644
     notify:
-    - reload systemd
+      - reload systemd
 
   - name: Consul Service Start
     service: name=consul
