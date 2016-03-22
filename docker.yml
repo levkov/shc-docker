@@ -31,3 +31,9 @@
     copy: src=consul.service
           dest=/usr/lib/systemd/system/
           owner=root group=root mode=0644
+          
+          
+  - name: Consul Service Start
+    service: name=consul
+             state=started
+             enabled=yes
