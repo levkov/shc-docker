@@ -1,0 +1,14 @@
+[Unit]
+Description=Registry Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=/usr/bin/docker pull registry:2
+ExecStartPre=-/usr/bin/docker run -d -p 5000:5000 --restart=always --name registry registry:2
+ExecStart=/usr/bin/docker start -a registry
+ExecStop=/usr/bin/docker stop -t 2 registry
+
+[Install]
+WantedBy=multi-user.target
