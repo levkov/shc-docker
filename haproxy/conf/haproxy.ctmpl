@@ -30,9 +30,9 @@ backend srvs_app{{$i}}
     option forwardfor{{range $c,$d:=service $a.Name}}
     server host{{$c}} {{.Address}}:{{.Port}} check{{end}}{{end}}{{end}}
 
-    listen appname 0.0.0.0:80
-        mode http
-        stats enable
-        stats show-node
-        stats uri /stats
-        option httpclose
+listen appname 0.0.0.0:80
+    mode http
+    stats enable
+    stats show-node
+    stats uri /stats
+    option httpclose
