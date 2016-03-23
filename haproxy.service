@@ -5,6 +5,8 @@ After=docker.service
 
 [Service]
 Restart=always
+ExecStartPre=-/usr/bin/docker kill haproxy
+ExecStartPre=-/usr/bin/docker rm haproxy
 ExecStartPre=-/usr/bin/docker run -d --name=haproxy -p 80:80 levkov/haproxy
 ExecStart=/usr/bin/docker start -a haproxy
 ExecStop=/usr/bin/docker stop -t 2 haproxy
