@@ -3,8 +3,8 @@ global
     log 127.0.0.1   local1 notice
     debug
     stats timeout 30s
-
-
+    maxconn {{with $maxconn:=key "service/haproxy/maxconn"}}{{$maxconn}}{{else}}4096{{end}}
+ 
 defaults
     log global
     option httplog
@@ -16,22 +16,22 @@ defaults
     timeout server  50000{{end}}
 
 frontend http-in
-    bind *:80{{range $i,$a:=services}}{{$path:=.Name}}{{if .Name | contains "http"}}
-    acl app{{$i}} path_beg -i /{{$path}}{{end}}{{end}}
-    {{range $i,$a:=services}}{{if .Name | contains "http"}}
-    use_backend srvs_app{{$i}} if app{{$i}}{{end}}{{end}}
+    bind \÷*:80{{range $i,$a:=services}}{{$path:=.Name}}{{range .Tags}}{{if eq . "rest"}}
+    acl app{{$i}} path_beg -i /{{$path}}{{end}}{{end}}{{end}}
+    {{range $i,$a:=services}}{{range .Tags}}{{if eq . "rest"}}
+    use_backend srvs_app{{$i}} if app{{$i}}{{end}}{{end}}{{end}}
 
-{{range $i,$a:=services}}{{$path:=.Name}}{{if .Name | contains "http"}}
+{{range $i,$a:=services}}{{$path:=.Name}}{{range .Tags}}{{if eq . "rest"}}
 backend srvs_app{{$i}}
     mode http
     balance roundrobin
-    reqrep ^([^\ ]*\ /){{$path}}[/]?(.*)     \1\2
-    option forwardfor{{range $c,$d:=service $a.Name}}
-    server host{{$c}} {{.Address}}:{{.Port}} check{{end}}{{end}}{{end}}
-
-    listen appname 0.0.0.0:80
-        mode http
-        stats enable
-        stats show-node
-        stats uri /stats
-        option httpclose
+    option forwardfor
+    option httpchk HEAD / HTTP/1.1\r\nHost:localhost
+    reqrep ^([^\ ]*\ /){{$path}}[/]?(.*)     \1\2{{range $c,$d:=service $a.Name}}
+    server host{{$c}} {{.Address}}:{{.Port}} check{{end}}{{end}}{{end}}{{end}}
+ 
+listen stats *:1936
+    stats enable
+    stats uri /
+    stats hide-version
+    stats auth someuser:password
