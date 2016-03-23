@@ -58,6 +58,11 @@
   - name: Add Jenkins SystemD Service 
     copy: src=jenkins.service
           dest=/usr/lib/systemd/system/
+          owner=root group=root mode=0644           
+
+  - name: Add HAProxy SystemD Service 
+    copy: src=haproxy.service
+          dest=/usr/lib/systemd/system/
           owner=root group=root mode=0644            
 
   - name: Reload SystemD
@@ -86,5 +91,10 @@
 
   - name: jenkins Service Start
     service: name=jenkins
+             state=started
+             enabled=yes
+
+  - name: HAProxy Service Start
+    service: name=haproxy
              state=started
              enabled=yes
