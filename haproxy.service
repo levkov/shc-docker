@@ -1,0 +1,13 @@
+[Unit]
+Description=DockerUI Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=-/usr/bin/docker run -d --name=haproxy -p 80:80 levkov/haproxy
+ExecStart=/usr/bin/docker start -a haproxy
+ExecStop=/usr/bin/docker stop -t 2 haproxy
+
+[Install]
+WantedBy=multi-user.target
