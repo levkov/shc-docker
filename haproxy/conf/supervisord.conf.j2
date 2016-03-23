@@ -14,3 +14,9 @@ command=/usr/local/bin/consul-template -consul {{ ansible_eth0.ipv4.address }}:8
 autostart=true
 autorestart=true
 user=root
+
+[program:haproxy]
+command=/usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -n 4096 -N 4096
+autostart=true
+autorestart=true
+user=root
