@@ -52,7 +52,7 @@
     group: name=docker state=present    
 
   - name: Add user jenkins to docker group
-   user: name=jenkins groups=docker append=yes         
+    user: name=jenkins groups=docker append=yes         
          
   - name: copy a jobs directory
     copy: src=jobs dest=/var/lib/jenkins
