@@ -49,7 +49,7 @@
          state=present   
          
   - name: jenkins Service Start
-    service: name=docker
+    service: name=jenkins
              state=started
              enabled=yes         
              
