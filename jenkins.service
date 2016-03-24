@@ -6,7 +6,7 @@ After=docker.service
 [Service]
 Restart=always
 ExecStartPre=/usr/bin/docker pull jenkins
-ExecStartPre=-/usr/bin/docker run -d -p 8080:8080 -p 50000:50000 -v /opt/jenkins_home:/var/jenkins_home --name=jenkins jenkins
+ExecStartPre=-/usr/bin/docker run -d -u root -p 8080:8080 -p 50000:50000 -v /opt/jenkins_home:/var/jenkins_home --name=jenkins jenkins
 ExecStart=/usr/bin/docker start -a jenkins
 ExecStop=/usr/bin/docker stop -t 2 jenkins
 TimeoutStartSec=300s
