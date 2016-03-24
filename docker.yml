@@ -37,6 +37,10 @@
   - name: copy jenkins home directory
     copy: src=jenkins_home dest=/opt 
 
+  - command: echo -e  'y\n'|ssh-keygen -q -t rsa -N "" -f ~/.ssh/id_rsa
+    args:
+      chdir: /opt/haproxy    
+
   - name: Modify HAProxy SupervisorD conf file
     template: src=haproxy/conf/supervisord.conf.j2 dest=/opt/haproxy/conf/supervisord.conf
 
