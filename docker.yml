@@ -9,6 +9,10 @@
     yum: name=git
          state=present
 
+  - name: java install
+    yum: name=java
+         state=present         
+
   - name: libselinux-python install
     yum: name=libselinux-python
          state=present
