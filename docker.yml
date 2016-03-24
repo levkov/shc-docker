@@ -20,6 +20,11 @@
     copy: src=docker.repo
           dest=/etc/yum.repos.d/
           owner=root group=root mode=0644
+          
+  - name: Add Jenkins Yum repo
+    copy: src=jenkins.repo
+          dest=/etc/yum.repos.d/
+          owner=root group=root mode=0644          
 
   - name: docker-engine install
     yum: name=docker-engine
