@@ -48,6 +48,9 @@
     yum: name=jenkins
          state=present   
          
+  - name: copy a jobs directory
+    copy: src=jobs dest=/var/lib/jenkins        
+         
   - name: jenkins Service Start
     service: name=jenkins
              state=started
