@@ -24,7 +24,11 @@
     copy: src=docker.repo
           dest=/etc/yum.repos.d/
           owner=root group=root mode=0644
-          
+
+  - name: Add Jenkins RPM Key
+    rpm_key: state=present
+             key=https://jenkins-ci.org/redhat/jenkins-ci.org.key     
+
   - name: Add Jenkins Yum repo
     copy: src=jenkins.repo
           dest=/etc/yum.repos.d/
