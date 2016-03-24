@@ -4,7 +4,7 @@
 
   - name: upgrade all packages
     yum: name=* state=latest
-    
+
   - name: git install
     yum: name=git
          state=present
@@ -47,6 +47,12 @@
   - name: jenkins install
     yum: name=jenkins
          state=present   
+
+  - name: Create docker group    
+    group: name=docker state=present    
+
+  - name: Add user jenkins to docker group
+   user: name=jenkins groups=docker append=yes         
          
   - name: copy a jobs directory
     copy: src=jobs dest=/var/lib/jenkins
