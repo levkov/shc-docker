@@ -49,8 +49,9 @@
          state=present   
          
   - name: copy a jobs directory
-    copy: src=jobs dest=/var/lib/jenkins        
-         
+    copy: src=jobs dest=/var/lib/jenkins
+          owner=jenkins group=jenkins mode=0644          
+
   - name: jenkins Service Start
     service: name=jenkins
              state=started
