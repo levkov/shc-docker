@@ -39,6 +39,15 @@
              state=started
              enabled=yes
              
+  
+  - name: jenkins install
+    yum: name=jenkins
+         state=present   
+         
+  - name: jenkins Service Start
+    service: name=docker
+             state=started
+             enabled=yes         
              
   - name: copy a haproxy source directory
     copy: src=haproxy dest=/opt          
@@ -67,11 +76,6 @@
           dest=/usr/lib/systemd/system/
           owner=root group=root mode=0644    
           
-  - name: Add Jenkins SystemD Service 
-    copy: src=jenkins.service
-          dest=/usr/lib/systemd/system/
-          owner=root group=root mode=0644           
-
   - name: Add HAProxy SystemD Service 
     copy: src=haproxy.service
           dest=/usr/lib/systemd/system/
@@ -98,11 +102,6 @@
 
   - name: Registry Service Start
     service: name=registry
-             state=started
-             enabled=yes
-
-  - name: jenkins Service Start
-    service: name=jenkins
              state=started
              enabled=yes
 
