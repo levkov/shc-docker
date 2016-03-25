@@ -13,7 +13,13 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>ls</command>
+      <command>ls /</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>ps -ef</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cat /var/lib/jenkins/jobs/test/config.xml</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
