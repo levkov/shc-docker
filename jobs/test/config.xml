@@ -16,6 +16,11 @@
           <description></description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>env</name>
+          <description></description>
+          <defaultValue>dev</defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -38,7 +43,10 @@ END</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>cd $repo
-docker-compose build</command>
+docker-compose build
+docker images
+docker tag &quot;$repo&quot;_&quot;$env&quot; localhost:5000/&quot;$repo&quot;_&quot;$env&quot;
+docker push localhost:5000/&quot;$repo&quot;_&quot;$env&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>cd $repo
