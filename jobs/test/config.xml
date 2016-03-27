@@ -3,7 +3,22 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>repo_url</name>
+          <description>Git repository url</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>repo</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -13,10 +28,13 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>ls /</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>ps -ef</command>
+      <command>python &lt;&lt; END
+import os
+if os.path.isdir(&quot;$repo&quot;):
+    os.system(&quot;cd $repo &amp;&amp; git -c http.sslVerify=false pull&quot;)
+else:
+    os.system(&quot;git -c http.sslVerify=false clone $repo_url&quot;)
+END</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>cat /var/lib/jenkins/jobs/test/config.xml</command>
