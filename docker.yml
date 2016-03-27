@@ -9,6 +9,10 @@
     yum: name=git
          state=present
 
+  - name: pip install
+    yum: name=python-pip
+         state=present         
+
   - name: java install
     yum: name=java
          state=present         
@@ -131,10 +135,5 @@
              enabled=yes
 
   - name: Install Docker-compose
-    command: curl -L https://github.com/docker/compose/releases/download/1.6.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-    
-  - name: Install Docker-compose
-    command: chmod +x /usr/local/bin/docker-compose
-    
-  - name: Docker-compose cmd completion
-    command: curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
+    pip: name=docker-compose
+   
