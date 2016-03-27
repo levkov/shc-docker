@@ -46,7 +46,8 @@ END</command>
 docker-compose build
 docker images
 docker tag &quot;$repo&quot;_&quot;$env&quot; localhost:5000/&quot;$repo&quot;
-docker push localhost:5000/&quot;$repo&quot;</command>
+docker push localhost:5000/&quot;$repo&quot;
+curl -X GET http://localhost:5000/v2/_catalog</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>cd $repo
