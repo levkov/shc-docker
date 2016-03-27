@@ -45,8 +45,8 @@ END</command>
       <command>cd $repo
 docker-compose build
 docker images
-docker tag &quot;$repo&quot;_&quot;$env&quot; localhost:5000/&quot;$repo&quot;_&quot;$env&quot;
-docker push localhost:5000/&quot;$repo&quot;_&quot;$env&quot;</command>
+docker tag &quot;$repo&quot;_&quot;$env&quot; localhost:5000/&quot;$repo&quot;
+docker push localhost:5000/&quot;$repo&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>cd $repo
