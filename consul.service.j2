@@ -9,7 +9,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill consul
 ExecStartPre=-/usr/bin/docker rm consul
 ExecStartPre=/usr/bin/docker pull progrium/consul
-ExecStart=/usr/bin/docker run -p 8500:8500 --name=consul progrium/consul -server -bootstrap -advertise {{ ansible_eth0.ipv4.address }}
+ExecStart=/usr/bin/docker run -p 8500:8500 --name=consul progrium/consul -server -bootstrap -advertise {{ ansible_default_ipv4.address }}
 ExecStop=/usr/bin/docker stop -t 2 consul
 
 [Install]
