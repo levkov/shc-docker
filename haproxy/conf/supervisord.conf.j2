@@ -10,7 +10,7 @@ port = 9001
 command=/usr/sbin/sshd -D
 
 [program:consul-template]
-command=/usr/local/bin/consul-template -consul {{ ansible_eth0.ipv4.address }}:8500 -template "/etc/haproxy/haproxy.ctmpl:/etc/haproxy/haproxy.cfg:/bin/pkill haproxy"
+command=/usr/local/bin/consul-template -consul {{ ansible_default_ipv4.address }}:8500 -template "/etc/haproxy/haproxy.ctmpl:/etc/haproxy/haproxy.cfg:/bin/pkill haproxy"
 autostart=true
 autorestart=true
 user=root
